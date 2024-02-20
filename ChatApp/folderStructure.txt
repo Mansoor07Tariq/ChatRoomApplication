@@ -1,0 +1,28 @@
+/ChatApp
+  |-- /ChatApp
+    |-- __init__.py
+    |-- asgi.py
+    |-- consumers.py
+    |-- routing.py
+    |-- settings.py
+    |-- urls.py
+    |-- wsgi.py
+  |-- /ChatRoomApp
+    |-- /migrations
+    |-- __init__.py
+    |-- models.py
+    |-- tests.py
+    |-- urls.py
+    |-- views.py
+    |-- admin.py
+    |-- apps.py
+  |-- manage.py
+  |-- templates
+    |-- /registration
+      |-- login.html
+    |-- base.html
+    |-- room.html
+    |-- rooms.html
+  |-- folderStructure.txt
+  |-- requirments.txt
+|-- README.md
