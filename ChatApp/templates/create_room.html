@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Create Room{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card mt-5">
+          <div class="card-header">
+            <h2 class="text-center">Create a Room</h2>
+          </div>
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="btn btn-primary btn-block">Create</button>
+            </form>
+          </div>
+        </div>
+
+        {% if room_created %}
+        <div class="alert alert-success mt-3">
+          <p>Room created successfully!</p>
+          <a href="{% url 'rooms' %}" class="btn btn-secondary">Go back to rooms</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,38 +1,60 @@
-{% extends "base.html" %} 
-{% block title %}Home{% endblock %} 
+{% extends "base.html" %}
+{% block title %}
+Home
+{% endblock %}
 {% block content %}
-
 {% if user.is_authenticated %}
-  <div class="container mt-4">
+<div class="container mt-4">
     <div class="row">
-      <div class="col">
-        <h3 class="mb-4">Hi, {{ user.username }}!</h3>
-        <p>
-          <a href="{% url 'logout' %}" class="btn btn-danger">Log Out</a>
-        </p>
-      </div>
-    </div>
-
-    <div class="row">
-      {% for room in rooms %}
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{ room.name }}</h5>
-              <a href="{{ room.slug }}" class="btn btn-primary">Go To Rooms</a>
+        <!-- Left Side: User Information -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="mb-4">Hi, {{ user.username }}!</h3>
+                    <p>
+                        <a href="{% url 'logout' %}" class="btn btn-danger">Log Out</a>
+                    </p>
+                </div>
             </div>
-          </div>
+
+            <div class="card mt-4">
+              <div class="card-body text-center">
+                  <div class="my-4">
+                      <a href="{% url 'create_room' %}" class="btn btn-primary btn-lg">Create Room</a>
+                  </div>
+              </div>
+          </div>          
+
         </div>
-      {% endfor %}
+        <!-- Right Side: List of Rooms -->
+        <div class="col-md-8">
+            <div class="row">
+                {% for room in rooms %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ room.name }}</h5>
+                            <form method="post" action="{% url 'enter_room' slug=room.slug %}">
+                                {% csrf_token %}
+                                <input type="password" name="passkey" placeholder="Enter Passkey">
+                                <button type="submit" class="btn btn-primary">Go To Room</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 {% else %}
-  <div class="container mt-5">
+<div class="container mt-5">
     <div class="row justify-content-center">
-      <div class="col-md-6 text-center">
-        <p class="lead">You are not logged in</p>
-        <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
-      </div>
+        <div class="col-md-6 text-center">
+            <p class="lead">You are not logged in</p>
+            <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+        </div>
     </div>
-  </div>
-{% endif %} {% endblock %}
+</div>
+{% endif %}
+{% endblock %}

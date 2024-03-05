@@ -1,26 +1,35 @@
 {% extends "base.html" %}
 {% block title %}
-Home
+{{ room_name }}
 {% endblock %} 
 {% block content %} 
 {% if user.is_authenticated %}
 
     <div class="container mt-4">
         <div class="row">
-            <div class="col">
-            <h3 class="mb-2">Hi, {{ user.username }}!</h3>
-            <p>
-                <a href="{% url 'logout' %}" class="btn btn-danger">Log Out</a>
-            </p>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="mb-2">Hi, {{ user.username }}!</h3>
+                        <p>
+                            <a href="{% url 'logout' %}" class="btn btn-danger">Log Out</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h4>Room: {{ room_name }}</h4>
+                        <h5>Members:</h5>
+                        <ul>
+                            {% for member in members %}
+                                <li>{{ member }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <div class="chat__item__container" id="id_chat_item_container" style="font-size: 20px">
-
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
+            <div class="col-md-8">
+                <div class="chat__item__container" id="id_chat_item_container" style="font-size: 20px">
                     <div class="card">
                         <div class="card-body" style="max-height: 300px; overflow-y: auto;">
                             <ul class="list-group" id="messageList">
@@ -45,7 +54,6 @@ Home
                 </div>
             </div>
         </div>
-        
     </div>
 
     {{ slug | json_script:"room_slug" }}
